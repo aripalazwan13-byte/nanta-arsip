@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ringkasan Materi Pemasaran PKK XII - Muhammad Fahri Ananta</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- Header / Navbar Top -->
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Branding -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-brand-500/20">
+                        PKK
+                    </div>
+                    <div>
+                        <h1 class="text-base font-bold leading-tight text-slate-900 dark:text-white">Pemasaran Produk TKJ</h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">SMK/MAK Kelas XII</p>
+                    </div>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <!-- Search Input -->
+                    <div class="relative hidden md:block w-64">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                        <input type="text" id="searchInput" onkeyup="searchContent()" placeholder="Cari topik materi..." class="w-full pl-9 pr-4 py-1.5 text-sm rounded-lg bg-slate-100 dark:bg-slate-700 border-none focus:ring-2 focus:ring-brand-500 text-slate-800 dark:text-slate-200">
+                    </div>
+
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition" title="Ubah Mode Tampilan">
+                        <i id="themeIcon" class="fa-solid fa-moon"></i>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="hidden md:block bg-slate-100/50 dark:bg-slate-800/50 border-t border-slate-200/60 dark:border-slate-700/60">
+            <div class="max-w-7xl mx-auto px-4 flex gap-1 overflow-x-auto text-sm font-medium">
+                <button onclick="switchTab('modul1')" id="btn-modul1" class="nav-tab px-4 py-3 border-b-2 border-brand-600 text-brand-600 font-semibold flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-book-open"></i> 1. Hakikat & Orientasi
+                </button>
+                <button onclick="switchTab('modul2')" id="btn-modul2" class="nav-tab px-4 py-3 border-b-2 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-layer-group"></i> 2. Bauran Pemasaran (4P)
+                </button>
+                <button onclick="switchTab('modul3')" id="btn-modul3" class="nav-tab px-4 py-3 border-b-2 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-rectangle-ad"></i> 3. Lingkungan & Iklan
+                </button>
+                <button onclick="switchTab('modul4')" id="btn-modul4" class="nav-tab px-4 py-3 border-b-2 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-microchip"></i> 4. Industri Hardware
+                </button>
+                <button onclick="switchTab('modul5')" id="btn-modul5" class="nav-tab px-4 py-3 border-b-2 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-pen-to-square"></i> 5. Kuis Latihan
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-4 py-3 space-y-2">
+            <input type="text" id="searchInputMobile" onkeyup="searchContentMobile()" placeholder="Cari topik..." class="w-full px-3 py-2 text-sm rounded-lg bg-slate-100 dark:bg-slate-700 border-none mb-2">
+            <button onclick="switchTab('modul1')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700">1. Hakikat & Orientasi</button>
+            <button onclick="switchTab('modul2')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700">2. Bauran Pemasaran (4P)</button>
+            <button onclick="switchTab('modul3')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700">3. Lingkungan & Iklan</button>
+            <button onclick="switchTab('modul4')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700">4. Industri Hardware</button>
+            <button onclick="switchTab('modul5')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700">5. Kuis Latihan</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+
+        <!-- Banner Identitas Siswa -->
+        <div class="bg-gradient-to-r from-brand-800 via-brand-700 to-indigo-900 rounded-2xl p-6 text-white shadow-lg mb-8 relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-10 opacity-10 text-9xl font-black select-none pointer-events-none">
+                TKJ
+            </div>
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <span class="inline-block px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-semibold tracking-wider text-brand-100 uppercase mb-2">
+                        Rangkuman Pembelajaran Interactive
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Materi Pemasaran Produksi</h2>
+                    <p class="text-brand-100 text-sm mt-1">Produk Kreatif dan Kewirausahaan (PKK) SMK/MAK Kelas XII</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10 text-sm space-y-1 min-w-[240px]">
+                    <div class="flex justify-between items-center"><span class="text-brand-200">Nama:</span> <span class="font-bold">Muhammad Fahri Ananta</span></div>
+                    <div class="flex justify-between items-center"><span class="text-brand-200">Kelas:</span> <span class="font-semibold bg-brand-500/40 px-2 py-0.5 rounded text-xs">XII TKJ 1</span></div>
+                    <div class="flex justify-between items-center"><span class="text-brand-200">Mata Pelajaran:</span> <span class="font-medium">PKK</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Content Tabs -->
+
+        <!-- MODUL 1: Hakikat & Orientasi -->
+        <div id="modul1" class="tab-content space-y-6">
+            <section class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">1</div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Hakikat & Definisi Pemasaran</h3>
+                </div>
+                <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                    Pemasaran adalah sistem pertukaran dan ujung tombak perusahaan yang bertanggung jawab agar setiap produk/jasa dapat terjual sehingga perusahaan mendapatkan keuntungan maksimal.
+                </p>
+                <div class="bg-brand-50 dark:bg-brand-900/30 border-l-4 border-brand-600 p-4 rounded-r-xl">
+                    <h4 class="font-semibold text-brand-900 dark:text-brand-200 text-sm uppercase tracking-wider mb-1">Definisi AMA (American Marketing Association)</h4>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm italic">
+                        "Kegiatan dan proses menciptakan, mengomunikasikan, menyampaikan, dan menukar produk yang memiliki nilai di mata konsumen, klien, mitra, dan masyarakat umum."
+                    </p>
+                </div>
+            </section>
+
+            <section class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">2</div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">7 Orientasi Dasar dalam Pemasaran</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="p-4 rounded-xl border border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/30 hover:border-brand-500 transition">
+                        <div class="font-bold text-slate-900 dark:text-white mb-1"><i class="fa-solid fa-box-open text-brand-500 mr-2"></i>a. Orientasi Produk</div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Menekankan kualitas produk tetap berada pada standar tinggi agar konsumen tertarik membeli.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/30 hover:border-brand-500 transition">
+                        <div class="font-bold text-slate-900 dark:text-white mb-1"><i class="fa-solid fa-tags text-brand-500 mr-2"></i>b. Orientasi Penjualan</div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Mementingkan promosi gencar untuk menjual produk yang ada agar laku dengan harga tinggi.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/30 hover:border-brand-500 transition">
+                        <div class="font-bold text-slate-900 dark:text-white mb-1"><i class="fa-solid fa-industry text-brand-500 mr-2"></i>c. Orientasi Produksi</div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Memproduksi massal dengan keyakinan mampu menyerap banyak permintaan konsumen.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/30 hover:border-brand-500 transition">
+                        <div class="font-bold text-slate-900 dark:text-white mb-1"><i class="fa-solid fa-chart-line text-brand-500 mr-2"></i>d. Orientasi Pemasaran</div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Pendekatan kontemporer dengan mensuplai produk yang menjadi kebutuhan konsumen.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/30 hover:border-brand-500 transition">
+                        <div class="font-bold text-slate-900 dark:text-white mb-1"><i class="fa-solid fa-users text-brand-500 mr-2"></i>e. Orientasi Konsumen</div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Menciptakan produk yang dibutuhkan dan mengikuti selera konsumen sebagai kunci utama.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/30 hover:border-brand-500 transition">
+                        <div class="font-bold text-slate-900 dark:text-white mb-1"><i class="fa-solid fa-building text-brand-500 mr-2"></i>f. Orientasi Perusahaan</div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Bagian pemasaran dijadikan panduan utama bagi divisi lain di dalam perusahaan.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-brand-200 dark:border-brand-800 bg-brand-50/30 dark:bg-brand-900/20 md:col-span-2 lg:col-span-3">
+                        <div class="font-bold text-brand-900 dark:text-brand-300 mb-1"><i class="fa-solid fa-handshake text-brand-600 mr-2"></i>g. Kerja Sama Saling Menguntungkan</div>
+                        <p class="text-sm text-slate-700 dark:text-slate-300">Transaksi di mana produsen memperoleh modal/untung, sementara konsumen mendapat produk, kepercayaan, dan garansi.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- MODUL 2: Bauran Pemasaran (4P) -->
+        <div id="modul2" class="tab-content hidden space-y-6">
+            <section class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">3</div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Elemen Pemasaran (Bauran Pemasaran / 4P)</h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm hover:shadow-md transition">
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/40 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl font-bold mb-3">
+                            <i class="fa-solid fa-cube"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-1">1. Produk (Product)</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Spesifikasi barang/jasa, garansi, jaminan, serta fitur pendukung produk.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm hover:shadow-md transition">
+                        <div class="w-12 h-12 rounded-xl bg-green-50 dark:bg-green-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold mb-3">
+                            <i class="fa-solid fa-tag"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-1">2. Harga (Price)</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Penetapan harga, diskon, dan nilai tukar (uang, waktu, energi) yang dibayar konsumen.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm hover:shadow-md transition">
+                        <div class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl font-bold mb-3">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-1">3. Distribusi (Place)</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Cara produk sampai ke tangan konsumen, mencakup lokasi dan kanal penjualan.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm hover:shadow-md transition">
+                        <div class="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl font-bold mb-3">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-1">4. Promosi (Promotion)</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Kegiatan periklanan, promosi penjualan, pemerekan (branding), dan publisitas.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- MODUL 3: Lingkungan & Iklan -->
+        <div id="modul3" class="tab-content hidden space-y-6">
+            <section class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">4</div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Lingkungan Pemasaran</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-slate-200 dark:border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-2 text-base">a. Lingkungan Makro</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mb-3">Skala luas di luar kontrol langsung perusahaan.</p>
+                        <div class="bg-slate-100 dark:bg-slate-700/50 p-3 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-200">
+                            Dianalisis dengan metode <span class="text-brand-600 dark:text-brand-400 font-bold">PESTLE</span> (Politik, Ekonomi, Sosial, Teknologi, Legal, Ekologi).
+                        </div>
+                    </div>
+                    <div class="border border-slate-200 dark:border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-2 text-base">b. Lingkungan Mikro</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mb-3">Dapat dikontrol langsung oleh produsen. Terdiri dari:</p>
+                        <div class="grid grid-cols-2 gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                            <span class="bg-slate-100 dark:bg-slate-700/50 px-2.5 py-1.5 rounded">1) Konsumen</span>
+                            <span class="bg-slate-100 dark:bg-slate-700/50 px-2.5 py-1.5 rounded">2) Pegawai</span>
+                            <span class="bg-slate-100 dark:bg-slate-700/50 px-2.5 py-1.5 rounded">3) Supplier</span>
+                            <span class="bg-slate-100 dark:bg-slate-700/50 px-2.5 py-1.5 rounded">4) Media</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">5</div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Peran & Syarat Iklan</h3>
+                </div>
+                
+                <div class="space-y-4 mb-6">
+                    <h4 class="font-semibold text-slate-800 dark:text-slate-200">Peran Iklan (Kotler 1999):</h4>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-600 dark:text-slate-300">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-500 mt-1"></i> <span><strong>Menginformasikan:</strong> Mengenalkan produk baru dan karakteristiknya.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-500 mt-1"></i> <span><strong>Membujuk:</strong> Membangun permintaan selektif untuk merek tertentu.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-500 mt-1"></i> <span><strong>Mengingatkan:</strong> Menjaga persepsi dan ingatan konsumen terhadap merek.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-500 mt-1"></i> <span><strong>Memberikan Nilai Tambah:</strong> Memengaruhi persepsi kualitas, gengsi, dan kemewahan.</span></li>
+                        <li class="flex items-start gap-2 sm:col-span-2"><i class="fa-solid fa-circle-check text-brand-500 mt-1"></i> <span><strong>Mendukung Promosi Lain:</strong> Membantu tim sales dan program promosi penjualan.</span></li>
+                    </ul>
+                </div>
+
+                <div class="border-t border-slate-100 dark:border-slate-700 pt-4">
+                    <h4 class="font-semibold text-slate-800 dark:text-slate-200 mb-2">Syarat Iklan yang Baik:</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">(a) Objektif & Jujur</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">(b) Jelas & Mudah Dipahami</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">(c) Tidak Menyinggung Pihak Lain</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">(d) Menarik Perhatian Publik</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">6</div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Jenis-Jenis Iklan</h3>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-2"><i class="fa-solid fa-newspaper text-brand-500 mr-2"></i>a. Iklan Cetak</h4>
+                        <p class="text-xs text-slate-500 mb-2">Media: Koran, majalah, tabloid.</p>
+                        <ul class="text-sm space-y-1 text-slate-600 dark:text-slate-300">
+                            <li><strong>Iklan Baris:</strong> 3-4 baris, singkat, murah, tanpa gambar.</li>
+                            <li><strong>Iklan Kolom:</strong> Lebih tinggi, dilengkapi gambar/simbol/logo.</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-2"><i class="fa-solid fa-file-lines text-brand-500 mr-2"></i>b. Iklan Advertorial</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Iklan yang dikemas dan disajikan dalam bentuk gaya penulisan berita/artikel.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-2"><i class="fa-solid fa-image text-brand-500 mr-2"></i>c. Iklan Display</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Ukurannya lebih besar dari iklan kolom dengan tampilan gambar dan tulisan yang menonjol.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-2"><i class="fa-solid fa-tv text-brand-500 mr-2"></i>d. Iklan Elektronik</h4>
+                        <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-1">
+                            <li>• <strong>Radio:</strong> Kombinasi suara dan efek suara.</li>
+                            <li>• <strong>Televisi:</strong> Suara, gambar, dan gerakan.</li>
+                            <li>• <strong>Internet:</strong> Beragam (visual, audio, teks).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- MODUL 4: Pemasaran Industri Hardware (Siswa TKJ) -->
+        <div id="modul4" class="tab-content hidden space-y-6">
+            <section class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">7</div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Pemasaran pada Industri Perangkat Keras</h3>
+                </div>
+                <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                    Industri perangkat keras (hardware) memiliki siklus hidup produk pendek dan persaingan yang sangat ketat karena perubahan teknologi yang cepat. Produsen menyiasatinya dengan sistem standar terbuka, solusi terikat (proprietary solution), atau bergandengan dengan mitra bisnis.
+                </p>
+                <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-sm">
+                    <strong><i class="fa-solid fa-lightbulb mr-1"></i> Catatan Penting untuk Siswa TKJ:</strong><br>
+                    Dalam industri IT/Komputer, pemasaran digital (SEO, Katalog Online, Afiliasi, & E-commerce) merupakan saluran utama karena target pasarnya sangat melek teknologi (tech-savvy).
+                </div>
+            </section>
+
+            <section class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">8</div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Strategi Pemasaran Produk Perangkat Keras</h3>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Afiliasi -->
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/30">
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 text-base mb-1">a. Memanfaatkan Program Afiliasi (Affiliate Marketing)</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mb-2">
+                            Bisnis makelar online di mana produsen memberikan insentif/komisi kepada pihak lain yang berhasil menjual produk melalui tracking URL. Pengiklan mendapat keuntungan komisi, produsen tidak perlu bayar iklan langsung jika belum ada penjualan.
+                        </p>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">
+                            <strong>Platform Afiliasi Populer:</strong> Shareasale.com, Cj.com, Idevaffiliate.com, Cake.com.
+                        </div>
+                    </div>
+
+                    <!-- Dropship -->
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/30">
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 text-base mb-1">b. Metode Dropship</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mb-2">
+                            Teknik pemasaran di mana penjual (dropshipper) tidak menyimpan stok barang. Ketika ada order, penjual meneruskan pesanan dan detail pengiriman langsung ke produsen/supplier.
+                        </p>
+                        <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1">
+                            <li>• <strong>Blind Ship:</strong> Produsen mengirimkan barang tanpa mencantumkan label produsen asli.</li>
+                            <li>• <strong>Dropship dengan Label:</strong> Mencantumkan label perantara/dropshipper untuk membangun kepercayaan konsumen.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Pasar Promosi -->
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/30">
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 text-base mb-1">c. Metode Pasar Promosi (Giveaway / Bonus)</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">
+                            Bekerja sama dengan perusahaan yang lebih besar. Perusahaan besar membeli produk perangkat keras dalam jumlah banyak untuk dijadikan bonus atau hadiah (giveaway) bagi produk mereka.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">9</div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Media Pemasaran Perangkat Keras</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <div class="text-brand-600 dark:text-brand-400 font-bold mb-1"><i class="fa-solid fa-envelope-open-text mr-2"></i>a. Nawala (Newsletter)</div>
+                        <p class="text-xs text-slate-600 dark:text-slate-300">Strategi pemasaran e-mail/buletin berkala yang mengedepankan nilai guna perangkat keras untuk menjaga hubungan baik produsen-konsumen.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <div class="text-brand-600 dark:text-brand-400 font-bold mb-1"><i class="fa-solid fa-book-bookmark mr-2"></i>b. Katalog</div>
+                        <p class="text-xs text-slate-600 dark:text-slate-300">Daftar atau brosur produk yang menampilkan gambar dan deskripsi spesifikasi agar konsumen dapat memilih produk sesuai kebutuhan.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <div class="text-brand-600 dark:text-brand-400 font-bold mb-1"><i class="fa-solid fa-magnifying-glass-location mr-2"></i>c. Mesin Pencarian (SEO/SEM)</div>
+                        <p class="text-xs text-slate-600 dark:text-slate-300">Menggiring konsumen ke website bisnis melalui kata kunci pencarian (seperti "laptop" atau "printer") di Google agar tepat sasaran.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- MODUL 5: Kuis Latihan Interaktif -->
+        <div id="modul5" class="tab-content hidden space-y-6">
+            <section class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Kuis Latihan Mandiri</h3>
+                        <p class="text-sm text-slate-500">Uji pemahaman materi pemasaran PKK Kelas XII</p>
+                    </div>
+                    <span id="scoreDisplay" class="px-3 py-1 bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300 font-bold rounded-full text-sm">Skor: 0/5</span>
+                </div>
+
+                <form id="quizForm" class="space-y-6">
+                    <!-- Soal 1 -->
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-2">
+                        <p class="font-semibold text-slate-900 dark:text-white text-sm">1. Metode pemasaran makelar online yang memberikan komisi berdasarkan tracking URL adalah...</p>
+                        <div class="space-y-1 text-sm text-slate-700 dark:text-slate-300">
+                            <label class="flex items-center gap-2 cursor-pointer p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700">
+                                <input type="radio" name="q1" value="A" class="text-brand-600"> A. Dropship
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700">
+                                <input type="radio" name="q1" value="B" class="text-brand-600"> B. Affiliate Marketing (Program Afiliasi)
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700">
+                                <input type="radio" name="q1" value="C" class="text-brand-600"> C. Nawala
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 2 -->
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-2">
+                        <p class="font-semibold text-slate-900 dark:text-white text-sm">2. Analisis lingkungan makro dalam pemasaran umumnya menggunakan metode...</p>
+                        <div class="space-y-1 text-sm text-slate-700 dark:text-slate-300">
+                            <label class="flex items-center gap-2 cursor-pointer p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700">
+                                <input type="radio" name="q2" value="A" class="text-brand-600"> A. SWOT
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700">
+                                <input type="radio" name="q2" value="B" class="text-brand-600"> B. PESTLE
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700">
+                                <input type="radio" name="q2" value="C" class="text-brand-600"> C. 4P Mix
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 3 -->
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-2">
+                        <p class="font-semibold text-slate-900 dark:text-white text-sm">3. Berikut ini yang BUKAN termasuk komponen bauran pemasaran (4P) adalah...</p>
+                        <div class="space-y-1 text-sm text-slate-700 dark:text-slate-300">
+                            <label class="flex items-center gap-2 cursor-pointer p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700">
+                                <input type="radio" name="q3" value="A" class="text-brand-600"> A. Product
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700">
+                                <input type="radio" name="q3" value="B" class="text-brand-600"> B. Profit
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700">
+                                <input type="radio" name="q3" value="C" class="text-brand-600"> C. Place
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="checkQuiz()" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm rounded-xl transition shadow-md shadow-brand-500/20">
+                        Cek Jawaban Saya
+                    </button>
+                </form>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-6 mt-12 text-center text-xs text-slate-500 dark:text-slate-400">
+        <p>© 2026 Ringkasan Materi PKK XII - Muhammad Fahri Ananta (XII TKJ 1)</p>
+    </footer>
+
+    <!-- Script Interaktif -->
+    <script>
+        // Switch Modul Tab
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            // Show selected
+            document.getElementById(tabId).classList.remove('hidden');
+
+            // Update tab styles
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('border-brand-600', 'text-brand-600', 'font-semibold');
+                btn.classList.add('border-transparent', 'text-slate-600', 'dark:text-slate-400');
+            });
+
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if(activeBtn) {
+                activeBtn.classList.add('border-brand-600', 'text-brand-600', 'font-semibold');
+                activeBtn.classList.remove('border-transparent', 'text-slate-600', 'dark:text-slate-400');
+            }
+
+            // Close mobile menu
+            document.getElementById('mobileMenu').classList.add('hidden');
+        }
+
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                html.classList.add('dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        }
+
+        // Search Content
+        function searchContent() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            filterElements(query);
+        }
+
+        function searchContentMobile() {
+            const query = document.getElementById('searchInputMobile').value.toLowerCase();
+            filterElements(query);
+        }
+
+        function filterElements(query) {
+            if(!query) return;
+            // Unhide all tabs for search
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('hidden'));
+            
+            const sections = document.querySelectorAll('section, .p-4, .p-5');
+            sections.forEach(sec => {
+                const text = sec.innerText.toLowerCase();
+                if(text.includes(query)) {
+                    sec.style.display = '';
+                } else {
+                    sec.style.display = 'none';
+                }
+            });
+        }
+
+        // Kuis Checker
+        function checkQuiz() {
+            let score = 0;
+            const answers = { q1: 'B', q2: 'B', q3: 'B' };
+            const form = document.getElementById('quizForm');
+
+            if (form.q1.value === answers.q1) score++;
+            if (form.q2.value === answers.q2) score++;
+            if (form.q3.value === answers.q3) score++;
+
+            document.getElementById('scoreDisplay').innerText = `Skor Anda: ${score}/3`;
+            alert(`Selesai! Skor Anda adalah ${score} dari 3.`);
+        }
+    </script>
+</body>
+</html>
